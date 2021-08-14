@@ -1,23 +1,14 @@
 // module.exports = {
-// //   css: {
-// //       loaderOptions: {
-// //           sass: {
+//   chainWebpack: (config) => {
+//     const svgRule = config.module.rule("svg");
 
-// //           }
-// //       }
-// //   },
-//   configureWebpack: {
-//     module: {
-//       rules: [
-//         // ... other rules omitted
+//     svgRule.uses.clear();
 
-//         // this will apply to both plain `.scss` files
-//         // AND `<style lang="scss">` blocks in `.vue` files
-//         {
-//           test: /\.scss$/,
-//           use: ["vue-style-loader", "css-loader", "sass-loader"],
-//         },
-//       ],
-//     },
+//     svgRule
+//       .use("babel-loader")
+//       .loader("babel-loader")
+//       .end()
+//       .use("vue-svg-loader")
+//       .loader("vue-svg-loader");
 //   },
 // };
