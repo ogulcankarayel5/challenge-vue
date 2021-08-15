@@ -7,11 +7,13 @@
       <base-text :text="'Add New Link'" bold :size="'large'" />
       <form @submit.prevent="" class="add-form">
         <base-input
+          aria-required
           :label="'Link Name:'"
           type="text"
           placeholder="e.g Alphabet1"
           v-model="name"
         /><base-input
+          aria-required
           :label="'Link URL:'"
           type="text"
           placeholder="e.g http://abc.xyz"
@@ -45,12 +47,21 @@ export default {
       url: "",
     };
   },
+  computed: {
+    formIsValid() {
+      return !!this.name && !!this.url;
+    },
+  },
   methods: {
     ...mapActions(["addItem"]),
     addItemToList() {
-      const item = { name: this.name, url: this.url };
-      this.addItem(item);
-      this.$router.push("/");
+      if (this.formIsValid) {
+        const item = { name: this.name, url: this.url };
+        this.addItem(item);
+        this.$router.push("/");
+      } else {
+        alert("Bütün alanları doldurun");
+      }
     },
     backToHome() {
       this.$router.back();

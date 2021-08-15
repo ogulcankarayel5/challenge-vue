@@ -1,20 +1,33 @@
 <template>
   <div class="home">
-    <base-card @click="navigateToAddItem" class="home-submitLink">
-      <base-box> <fa icon="plus" size="4x" /></base-box>
-      <base-text
-        :size="'large'"
-        :text="'SUBMIT A LINK'"
-        class="home-submitText"
-      />
-    </base-card>
-    <div v-if="items">
-      <div v-for="item in allItems" :key="item.id">
-        <card-item :url="item.url" :name="item.name" :points="item.points" />
+    <div class="home-inner">
+      <base-card @click="navigateToAddItem" class="home-submitLink">
+        <base-box> <fa icon="plus" size="4x" /></base-box>
+        <base-text
+          :size="'large'"
+          :text="'SUBMIT A LINK'"
+          class="home-submitText"
+        />
+      </base-card>
+      <div class="home-divider" />
+      <select v-model="filter">
+        <option value="">Order By</option>
+        <option value="most">Most Voted (Z -> A)</option>
+        <option value="less">Less Voted (A -> Z)</option>
+      </select>
+      <div v-if="items">
+        <div v-for="item in filteredList" :key="item.id">
+          <card-item
+            :itemId="item.id"
+            :url="item.url"
+            :name="item.name"
+            :points="item.points"
+          />
+        </div>
       </div>
-    </div>
-    <div v-else>
-      <p>Lütfen ekleme yapınız</p>
+      <div v-else>
+        <p>Lütfen ekleme yapınız</p>
+      </div>
     </div>
   </div>
 </template>
@@ -29,11 +42,12 @@ import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Home",
+
   methods: {
     navigateToAddItem() {
       this.$router.push({ name: "Add" });
     },
-    ...mapActions(["setList"]),
+    ...mapActions(["getList", "saveList", "changeFilter"]),
   },
   components: {
     BaseBox,
@@ -42,14 +56,24 @@ export default {
     BaseText,
   },
   computed: {
-    ...mapGetters(["allItems"]),
+    ...mapGetters(["allItems", "filteredList"]),
     items() {
-      console.log(this.allItems);
-      return this.allItems.length > 0;
+      return this.filteredList.length > 0;
+    },
+    filter: {
+      get() {
+        return this.$store.state.filterOption;
+      },
+      set(value) {
+        this.changeFilter(value);
+      },
     },
   },
   mounted() {
-    this.setList();
+    this.getList();
+  },
+  watch: {
+    filter() {},
   },
 };
 </script>
@@ -58,8 +82,18 @@ export default {
 .home
   margin-top: 50px
   display: flex
-  flex-direction: column
+  justify-content: center
   align-items: center
+  &-inner
+    display: flex
+    flex-direction: column
+
+  &-divider
+    background-color: #F5F5F5
+    height: 4px
+    width: 440px
+    margin-top: 30px
+    margin-bottom: 30px
   &-submitLink
     background-color: #F5F5F5
     border-radius: 20px
@@ -67,4 +101,13 @@ export default {
   &-submitText
     margin-left: 50px
     letter-spacing: 1.2px
+  select
+    background-color: #F5F5F5
+    font-size: 1.4rem
+    outline: none
+    width: 15rem
+    padding: 5px
+    border-radius: 5px
+  option
+    background-color: red
 </style>
