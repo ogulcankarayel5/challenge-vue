@@ -15,19 +15,23 @@
         <option value="most">Most Voted (Z -> A)</option>
         <option value="less">Less Voted (A -> Z)</option>
       </select>
-      <div v-if="items">
-        <div v-for="item in filteredList" :key="item.id">
-          <card-item
-            :itemId="item.id"
-            :url="item.url"
-            :name="item.name"
-            :points="item.points"
-          />
-        </div>
-      </div>
-      <div v-else>
-        <p>Lütfen ekleme yapınız</p>
-      </div>
+      <v-pagination :totalItems="filteredList.length" :items="filteredList">
+        <template #data="{ paginatedItems }">
+          <div v-if="paginatedItems.length > 0">
+            <div v-for="item in paginatedItems" :key="item.id">
+              <card-item
+                :itemId="item.id"
+                :url="item.url"
+                :name="item.name"
+                :points="item.points"
+              />
+            </div>
+          </div>
+          <div v-else>
+            <p>Lütfen ekleme yapınız</p>
+          </div>
+        </template>
+      </v-pagination>
     </div>
   </div>
 </template>
@@ -38,6 +42,7 @@ import BaseBox from "@/components/BaseBox.vue";
 import CardItem from "../components/CardItem.vue";
 import BaseCard from "../components/BaseCard.vue";
 import BaseText from "../components/BaseText.vue";
+import Pagination from "../components/Pagination.vue";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -54,6 +59,7 @@ export default {
     CardItem,
     BaseCard,
     BaseText,
+    "v-pagination": Pagination,
   },
   computed: {
     ...mapGetters(["allItems", "filteredList"]),

@@ -42,13 +42,12 @@ export default {
       type: String,
     },
     itemId: {
-      type: Number,
+      type: String,
     },
   },
   methods: {
     ...mapActions(["upVote","downVote"]),
     up() {
-      console.log("qwewe")
       this.upVote(this.itemId);
     },
     down() {

@@ -17,11 +17,9 @@ export default createStore({
     },
     itemById: (state) => (id) => {
       const index = state.list.findIndex((item) => item.id === id);
-      console.log(index);
       return state.list[index];
     },
     filteredList(state, getters) {
-      console.log(state.filterOption);
       if (state.filterOption !== "") {
         return [...state.list].sort(sort_functions[state.filterOption]);
       }
@@ -33,7 +31,6 @@ export default createStore({
       state.list = list;
     },
     ADD_ITEM(state, item) {
-      console.log(item);
       state.list.push(item);
     },
     UP_VOTE(_state, item) {
@@ -68,12 +65,10 @@ export default createStore({
       commit("GET_LIST", JSON.parse(localStorage.getItem("list")) || []);
     },
     upVote({ commit, dispatch }, id) {
-      console.log(this.getters.itemById(id));
       commit("UP_VOTE", this.getters.itemById(id));
       dispatch("saveList");
     },
     downVote({ commit, dispatch }, id) {
-      console.log(this.getters.itemById(id));
       commit("DOWN_VOTE", this.getters.itemById(id));
       dispatch("saveList");
     },

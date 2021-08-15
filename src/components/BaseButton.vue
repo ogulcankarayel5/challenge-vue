@@ -1,5 +1,6 @@
 <template>
   <component
+    v-bind="$attrs"
     :is="tag"
     :href="to"
     @click="onClickButton"
