@@ -1,5 +1,28 @@
 <template>
-  <base-card class="card">
+  <base-modal :title="'Remove Link'" :name="'remove'">
+    <template v-slot:body>
+      <base-text :color="'#000'" :text="'Do you want to remove'" />
+      <base-text :color="'#000'" :text="name" bold :size="'large'" />
+    </template>
+    <template v-slot:footer>
+      <base-button @onClick="removeItemFromList" :variant="'primary'"
+        ><base-text :text="'OK'" :size="'large'" :color="'#fff'"
+      /></base-button>
+      <base-button @onClick="closeModal('remove')" :variant="'primary'"
+        ><base-text :text="'CANCEL'" :size="'large'" :color="'#fff'"
+      /></base-button>
+    </template>
+  </base-modal>
+  <base-card
+    class="card"
+    @mouseover="removeButtonVisibility = true"
+    @mouseleave="removeButtonVisibility = false"
+  >
+    <div
+      @click="openModal('remove')"
+      v-if="removeButtonVisibility"
+      class="card-removeButton"
+    />
     <base-box>
       <base-text :text="points.toString()" :size="'large'" bold />
       <base-text :text="'POINTS'" :color="'	#909090'" />
@@ -23,6 +46,8 @@ import BaseBox from "./BaseBox.vue";
 import BaseButton from "./BaseButton.vue";
 import BaseCard from "./BaseCard.vue";
 import BaseText from "./BaseText.vue";
+import BaseModal from "./BaseModal.vue";
+
 export default {
   name: "CardItem",
   components: {
@@ -30,6 +55,7 @@ export default {
     BaseButton,
     BaseCard,
     BaseText,
+    BaseModal,
   },
   props: {
     points: {
@@ -45,20 +71,36 @@ export default {
       type: String,
     },
   },
+  data() {
+    return {
+      removeButtonVisibility: false,
+    };
+  },
   methods: {
-    ...mapActions(["upVote","downVote"]),
+    ...mapActions("list", ["removeItem", "upVote", "downVote"]),
+    ...mapActions("ui", ["pushToast", "openActiveModal", "closeModal"]),
     up() {
       this.upVote(this.itemId);
     },
     down() {
-      this.downVote(this.itemId)
-    }
+      this.downVote(this.itemId);
+    },
+
+    openModal(name) {
+      this.openActiveModal(name);
+    },
+    removeItemFromList() {
+      this.removeItem(this.itemId);
+      this.pushToast({ type: "success", text: `${this.name} removed` });
+      this.closeModal("remove");
+    },
   },
 };
 </script>
 
 <style computed lang="sass">
 .card
+  position: relative
   &-info
     display: flex
     flex: 1
@@ -69,7 +111,13 @@ export default {
   &-buttons
     display: flex
     justify-content: space-between
+  &-removeButton
+    position: absolute
+    height: 30px
+    width: 30px
+    background-color: red
+    top: 0
+    right: -20px
   &:hover
     background-color: #F5F5F5
-  
 </style>

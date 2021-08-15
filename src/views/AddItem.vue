@@ -53,12 +53,14 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["addItem"]),
+    ...mapActions("list", ["addItem"]),
+    ...mapActions("ui", ["pushToast"]),
     addItemToList() {
       if (this.formIsValid) {
         const item = { name: this.name, url: this.url };
         this.addItem(item);
-        this.$router.push("/");
+        this.pushToast({ type: "success", text: `${this.name} added` });
+        this.backToHome();
       } else {
         alert("Bütün alanları doldurun");
       }

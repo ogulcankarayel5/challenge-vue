@@ -1,5 +1,5 @@
 <template>
-  <div class="baseCard">
+  <div class="baseCard" v-bind="$attrs">
     <slot />
   </div>
 </template>

@@ -15,7 +15,11 @@
         <option value="most">Most Voted (Z -> A)</option>
         <option value="less">Less Voted (A -> Z)</option>
       </select>
-      <v-pagination :totalItems="filteredList.length" :items="filteredList">
+      <v-pagination
+        v-if="filteredList.length > 0"
+        :totalItems="filteredList.length"
+        :items="filteredList"
+      >
         <template #data="{ paginatedItems }">
           <div v-if="paginatedItems.length > 0">
             <div v-for="item in paginatedItems" :key="item.id">
@@ -52,7 +56,7 @@ export default {
     navigateToAddItem() {
       this.$router.push({ name: "Add" });
     },
-    ...mapActions(["getList", "saveList", "changeFilter"]),
+    ...mapActions("list", ["getList", "saveList", "changeFilter"]),
   },
   components: {
     BaseBox,
@@ -62,13 +66,13 @@ export default {
     "v-pagination": Pagination,
   },
   computed: {
-    ...mapGetters(["allItems", "filteredList"]),
+    ...mapGetters("list", ["filteredList"]),
     items() {
       return this.filteredList.length > 0;
     },
     filter: {
       get() {
-        return this.$store.state.filterOption;
+        return this.$store.state.list.filterOption;
       },
       set(value) {
         this.changeFilter(value);

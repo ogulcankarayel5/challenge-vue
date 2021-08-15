@@ -1,6 +1,6 @@
 <template>
   <slot name="data" :paginatedItems="paginatedItems" />
-  <div class="pagination">
+  <div class="pagination" v-bind="$attrs">
     <base-button
       :disabled="pageNumber <= 1"
       @onClick="changePage(pageNumber - 1)"
@@ -79,6 +79,7 @@ export default {
     &-button
         padding: 0 8px
         margin-right: 20px
+        margin-left: 20px
         font-size: 2rem
         &:disabled
             cursor: auto
