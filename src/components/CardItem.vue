@@ -1,17 +1,13 @@
 <template>
   <base-card class="card">
     <base-box>
-      <base-text :text="'6'" :size="'large'" bold />
+      <base-text :text="points.toString()" :size="'large'" bold />
       <base-text :text="'POINTS'" :color="'	#909090'" />
     </base-box>
     <div class="card-info">
       <div>
-        <base-text :text="'Hacker News'" bold />
-        <base-text
-          :color="'#A9A9A9'"
-          :text="'(https://stackoverflow.com)'"
-          :size="'small'"
-        />
+        <base-text :text="name" bold />
+        <base-text :color="'#A9A9A9'" :text="url" :size="'small'" />
       </div>
       <div class="card-buttons">
         <base-button>Up Vote</base-button>
@@ -33,6 +29,17 @@ export default {
     BaseButton,
     BaseCard,
     BaseText,
+  },
+  props: {
+    points: {
+      type: Number,
+    },
+    name: {
+      type: String,
+    },
+    url: {
+      type: String,
+    },
   },
 };
 </script>

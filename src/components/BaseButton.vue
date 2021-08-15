@@ -58,13 +58,15 @@ export default {
 
 <style scoped lang="sass">
 .button
+  cursor: pointer
 
   &-transparent
     background-color: transparent
   &-primary
     background-color: #000
     color: #fff
+    padding: 10px 40px
+    border-radius: 30px
   &-normal
-    width: 80px
-    padding: 10px 0
+    width: auto
 </style>

@@ -28,7 +28,6 @@ export default {
     },
     color: {
       type: String,
-      default: "#000",
     },
   },
   computed: {
@@ -52,7 +51,6 @@ export default {
 
 <style scoped lang="sass">
 .text
-    color: #000
     font-weight: normal
     &-normal
         font-size: 1.5rem

@@ -8,7 +8,14 @@
         class="home-submitText"
       />
     </base-card>
-    <card-item />
+    <div v-if="items">
+      <div v-for="item in allItems" :key="item.id">
+        <card-item :url="item.url" :name="item.name" :points="item.points" />
+      </div>
+    </div>
+    <div v-else>
+      <p>Lütfen ekleme yapınız</p>
+    </div>
   </div>
 </template>
 
@@ -18,6 +25,7 @@ import BaseBox from "@/components/BaseBox.vue";
 import CardItem from "../components/CardItem.vue";
 import BaseCard from "../components/BaseCard.vue";
 import BaseText from "../components/BaseText.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Home",
@@ -25,12 +33,23 @@ export default {
     navigateToAddItem() {
       this.$router.push({ name: "Add" });
     },
+    ...mapActions(["setList"]),
   },
   components: {
     BaseBox,
     CardItem,
     BaseCard,
     BaseText,
+  },
+  computed: {
+    ...mapGetters(["allItems"]),
+    items() {
+      console.log(this.allItems);
+      return this.allItems.length > 0;
+    },
+  },
+  mounted() {
+    this.setList();
   },
 };
 </script>
