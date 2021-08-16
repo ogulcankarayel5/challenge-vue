@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TheHeader.vue snapshot 1`] = `
+<header
+  class="header"
+>
+  <p
+    class="rightText"
+  >
+    hepsiburada.com
+  </p>
+  <p
+    class="leftText"
+  >
+    LinkVote Challenge
+  </p>
+</header>
+`;

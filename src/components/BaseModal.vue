@@ -35,7 +35,6 @@ export default {
   computed: {
     ...mapGetters("ui", ["activeModal"]),
     isOpen() {
-      console.log(this.activeModal);
       return this.activeModal?.includes(this.name);
     },
   },

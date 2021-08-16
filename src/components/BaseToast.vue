@@ -27,7 +27,6 @@ export default {
     },
   },
   mounted() {
-    console.log(this.toast);
     this.timeout = setTimeout(() => {
       this.removeToast(this.toast);
     }, 1000);

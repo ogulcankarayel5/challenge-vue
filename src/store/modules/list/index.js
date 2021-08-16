@@ -70,7 +70,6 @@ const actions = {
   },
   upVote({ commit, dispatch, getters }, id) {
     commit("UP_VOTE", getters.itemById(id));
-    console.log(getters.itemById(id));
     dispatch("saveList");
   },
   downVote({ commit, dispatch, getters }, id) {

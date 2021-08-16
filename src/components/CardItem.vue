@@ -22,7 +22,9 @@
       @click="openModal('remove')"
       v-if="removeButtonVisibility"
       class="card-removeButton"
-    />
+    >
+      <p>-</p>
+    </div>
     <base-box>
       <base-text :text="points.toString()" :size="'large'" bold />
       <base-text :text="'POINTS'" :color="'	#909090'" />
@@ -112,12 +114,21 @@ export default {
     display: flex
     justify-content: space-between
   &-removeButton
+    display: flex
+    justify-content: center
+    align-items: center
+    border-radius: 50%
     position: absolute
     height: 30px
     width: 30px
     background-color: red
-    top: 0
-    right: -20px
+    top: -8px
+    right: -15px
+    box-shadow: -1px 1px 3px black
+    & p
+      color: #fff
+      font-size: 4rem
+      margin-bottom: 8px
   &:hover
     background-color: #F5F5F5
 </style>

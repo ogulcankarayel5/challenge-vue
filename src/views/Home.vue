@@ -15,11 +15,7 @@
         <option value="most">Most Voted (Z -> A)</option>
         <option value="less">Less Voted (A -> Z)</option>
       </select>
-      <v-pagination
-        v-if="filteredList.length > 0"
-        :totalItems="filteredList.length"
-        :items="filteredList"
-      >
+      <v-pagination v-if="filteredList.length > 0" :items="filteredList">
         <template #data="{ paginatedItems }">
           <div v-if="paginatedItems.length > 0">
             <div v-for="item in paginatedItems" :key="item.id">
