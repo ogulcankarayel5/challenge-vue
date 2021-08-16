@@ -3,7 +3,7 @@
     <div class="modal-inner">
       <header class="modal-header">
         <base-text :color="'#fff'" :text="title" />
-        <base-button class="modal-closeButton" @onClick="closeModal(name)"
+        <base-button class="modal-closeButton" @onClick="closeModal(this.id + this.name)"
           >X</base-button
         >
       </header>
@@ -31,11 +31,14 @@ export default {
     title: {
       type: String,
     },
+    id: {
+      type: String
+    }
   },
   computed: {
     ...mapGetters("ui", ["activeModal"]),
     isOpen() {
-      return this.activeModal?.includes(this.name);
+      return this.activeModal?.includes((this.id + this.name));
     },
   },
   methods: {
