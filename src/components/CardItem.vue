@@ -1,5 +1,5 @@
 <template>
-  <base-modal :id="name" :title="'Remove Link'" :name="'remove'">
+  <base-modal :id="itemId" :title="'Remove Link'" :name="'remove'">
     <template v-slot:body>
       <base-text :color="'#000'" :text="'Do you want to remove'" />
       <base-text :color="'#000'" :text="name" bold :size="'large'" />
@@ -8,7 +8,7 @@
       <base-button @onClick="removeItemFromList" :variant="'primary'"
         ><base-text :text="'OK'" :size="'large'" :color="'#fff'"
       /></base-button>
-      <base-button @onClick="closeModal(name + 'remove')" :variant="'primary'"
+      <base-button @onClick="closeModal(itemId + 'remove')" :variant="'primary'"
         ><base-text :text="'CANCEL'" :size="'large'" :color="'#fff'"
       /></base-button>
     </template>
@@ -19,7 +19,7 @@
     @mouseleave="removeButtonVisibility = false"
   >
     <div
-      @click="openModal(name + 'remove')"
+      @click="openModal(itemId + 'remove')"
       v-if="removeButtonVisibility"
       class="card-removeButton"
     >
@@ -103,7 +103,7 @@ export default {
       console.log(this.name)
       this.removeItem(this.itemId);
       this.pushToast({ type: "success", text: `${this.name} removed` });
-      this.closeModal("remove");
+      this.closeModal(this.itemId + 'remove');
     },
   },
 };
