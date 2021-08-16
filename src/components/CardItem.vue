@@ -35,8 +35,12 @@
         <base-text :color="'#A9A9A9'" :text="url" :size="'small'" />
       </div>
       <div class="card-buttons">
-        <base-button @onClick="up">Up Vote</base-button>
-        <base-button @onClick="down">Down Vote</base-button>
+        <base-button class="card-button" @onClick="up"
+          ><img :src="arrowUp" />Up Vote</base-button
+        >
+        <base-button class="card-button" @onClick="down"
+          ><img :src="arrowDown" />Down Vote</base-button
+        >
       </div>
     </div>
   </base-card>
@@ -49,6 +53,8 @@ import BaseButton from "./BaseButton.vue";
 import BaseCard from "./BaseCard.vue";
 import BaseText from "./BaseText.vue";
 import BaseModal from "./BaseModal.vue";
+import arrowUp from "../icons/arrow_upward.svg";
+import arrowDown from "../icons/arrow_downward.svg";
 
 export default {
   name: "CardItem",
@@ -76,6 +82,8 @@ export default {
   data() {
     return {
       removeButtonVisibility: false,
+      arrowUp,
+      arrowDown,
     };
   },
   methods: {
@@ -113,6 +121,9 @@ export default {
   &-buttons
     display: flex
     justify-content: space-between
+  &-button
+    display: flex
+    align-items: center
   &-removeButton
     display: flex
     justify-content: center

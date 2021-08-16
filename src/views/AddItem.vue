@@ -1,7 +1,8 @@
 <template>
   <div class="add">
     <div class="add-inner">
-      <base-button @onClick="backToHome">
+      <base-button class="add-back" @onClick="backToHome">
+        <img :src="arrowLeft" class="add-backIcon" />
         <base-text :text="'Return to List'" :size="'small'"
       /></base-button>
       <base-text :text="'Add New Link'" bold :size="'large'" />
@@ -36,6 +37,8 @@
 import BaseButton from "../components/BaseButton.vue";
 import BaseText from "../components/BaseText.vue";
 import BaseInput from "../components/BaseInput.vue";
+import arrowLeft from "../icons/arrow_left.svg";
+
 import { mapActions } from "vuex";
 
 export default {
@@ -45,6 +48,7 @@ export default {
     return {
       name: "",
       url: "",
+      arrowLeft,
     };
   },
   computed: {
@@ -79,6 +83,11 @@ export default {
   flex-direction: column
   justify-content: center
   align-items: center
+  &-back
+    display: flex
+    align-items: center
+  &-backIcon
+    margin-right: 5px
   &-form
     margin-top: 50px
   &-group
